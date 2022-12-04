@@ -1,23 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
+    <title>Ladder Safety Checkup</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      rel="stylesheet"
+      href="//code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.css"
+    />
+    <script src="//code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="//code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.js"></script>
   </head>
+
   <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
+    <!-- Start of first page -->
+    <div data-role="page" id="foo">
+      <div data-role="content">
+        <h2>Login for the American ladder institute checkup</h2>
+        <p align="right">
+          <a href="#question_page" id="showregistration"
+            >American ladder institute checkup without logging in &rarr;</a
+          >
+        </p>
+        <form method="post" id="loginForm">
+          <label for="username">Email:</label>
+          <input
+            class="required"
+            type="text"
+            name="username"
+            id="username"
+            placeholder="username@server.com"
+            required
+          />
+          <label for="password">Password:</label>
+          <input
+            class="required"
+            type="password"
+            name="password"
+            id="password"
+            placeholder="password"
+            required
+          />
+          <input type="submit" value="Login" id="submitButton" />
+        </form>
+      </div>
+    </div>
+    <!-- /page -->
+
+    <!-- Start of second page -->
+    <div data-role="page" id="question_page">
+      <div data-role="header">
+        <h1>Question:</h1>
+      </div>
+      <!-- /header -->
+      <form id="question">
+        <fieldset data-role="controlgroup">
+          <legend class="question_here">Question here:</legend>
+          <input
+            type="radio"
+            name="radio-choice-v-2"
+            id="answera"
+            class="radio-choice-v-2a"
+            value="a"
+            checked="checked"
+          />
+          <label for="answera">choice a</label>
+          <input
+            type="radio"
+            id="answerb"
+            name="radio-choice-v-2"
+            class="radio-choice-v-2b"
+            value="b"
+          />
+          <label for="answerb">choice b</label>
+          <input
+            type="radio"
+            name="radio-choice-v-2"
+            id="answerc"
+            class="radio-choice-v-2c"
+            value="c"
+          />
+          <label for="answerc">choice c</label>
+          <input
+            type="radio"
+            name="radio-choice-v-2"
+            id="answerd"
+            class="radio-choice-v-2d"
+            value="d"
+          />
+          <label for="answerd">choice d</label>
+        </fieldset>
+        <input type="submit" value="Submit" id="submitButton" />
+      </form>
+    </div>
+    <!-- /page -->
+    <!-- TODO 2 Put the answer page with id="answer_page" here-->
+    <script>
+      const aQuestions = [
+        {
+          q: `Portable ladders used for access to an upper landing surface, such as a house roof, shall have
+side rails that extend at least ________________ above the upper landing surface to which the
+ladder is used to gain access.`,
+          a: [
+            '2 rungs',
+            '3 feet (0.9 m)',
+            '1.6 feet (0.5 m)',
+            '6 feet (1.8 m)',
+          ],
+          correct: 'b',
+          explanation: `Per OSHA 1926.1053(b)(1), the ladder side rails must extend at least 3 feet above the
+upper landing surface to which the ladder is used to gain access. The purpose of the 3 foot
+minimum is to support the worker getting on and off the ladder. There is no maximum
+distance.`,
+        },
+        {
+          q: `Choose the best ladder from the list below for working on an exterior conduit run adjacent to
+utility power lines.`,
+          a: [
+            'Aluminum extension ladder',
+            'Telescoping ladder',
+            'Fiberglass extension ladder',
+            'Orchard ladder',
+          ],
+          correct: 'c',
+          explanation: `Per OSHA 1926.1053(b)(12), ladders shall have nonconductive siderails if they are used
+where the employee or ladder could contact exposed energized electrical equipment. For
+voltages up to 50kV, the minimum clearance distance is 10 feet. When work must be done
+adjacent to utility power lines, request that the utility disconnect or place an insulated wrap
+over the conductors.`,
+        },
+      ];
+
+      $('#question_page').on('pagecreate', () => {
+        const nQuestion = Math.floor(Math.random() * aQuestions.length);
+        const oQuestion = aQuestions[nQuestion];
+        console.log(oQuestion);
+        // TODO 1 render oQuestion to the DOM
+      });
+      $('#loginForm').submit(() => {
+        event.preventDefault();
+        location.hash = 'question_page';
+        return false;
+      });
+      $('#question').submit(() => {
+        event.preventDefault();
+        location.hash = 'answer_page';
+        return false;
+      });
+    </script>
   </body>
 </html>
